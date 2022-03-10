@@ -8,7 +8,7 @@
     "url": "https://github.com/Wgmlgz/zhaba-script-vscode.git"
   },
   "publisher": "wgmlgz",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.61.0"
   },
