@@ -1,7 +1,7 @@
 {
   "name": "zhaba-script",
   "displayName": "Zhaba script",
-  "description": "Zhaba script - is a general purpose, statically typed, source-to-source compiled 🐸 language.",
+  "description": "Zhaba script - is a general-purpose, statically typed, source-to-source compiled 🐸 language.",
   "icon": "logo.jpg",
   "repository": {
     "type": "git",
