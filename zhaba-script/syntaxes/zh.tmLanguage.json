@@ -36,29 +36,9 @@
         }
       }
     },
+
     {
-      "match": "^\\s*(fn|lop|rop|op +[0-9]+)\\s+([^\\s:]+)((\\s+[^\\s:]+\\s+[^\\s:]+)*)\\s*(\\:|$)",
-      "captures": {
-        "1": {
-          "patterns": [{ "include": "#op-decl" }]
-        },
-        "2": {
-          "name": "entity.name.function"
-        },
-        "3": {
-          "patterns": [
-            {
-              "include": "#func-arg"
-            }
-          ]
-        },
-        "5": {
-          "name": "keyword.operator.assignment"
-        }
-      }
-    },
-    {
-      "match": "^\\s*(fn|lop|rop|op +[0-9]+)\\s+([^\\s:]+)\\s+([^\\s:]+)((\\s+[^\\s:]+\\s+[^\\s:]+)*)\\s*(\\:|$)",
+      "match": "^\\s*(fn|lop|rop|op +[0-9]+)\\s+((?:int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|[A-Z][_0-9a-zA-Z]*)(?:<(?: *(?:(?:int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|[A-Z][_0-9a-zA-Z]*)(?:<(?: *(?:(?:int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|[A-Z][_0-9a-zA-Z]*)(?:<(?: *(?:(?:int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|[A-Z][_0-9a-zA-Z]*)(?:<(?: *(?:int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|[A-Z][_0-9a-zA-Z]*) *)*>)?[PR]*) *)*>)?[PR]*) *)*>)?[PR]*) *)*>)?[PR]*) +([^ ]+)",
       "captures": {
         "1": {
           "patterns": [{ "include": "#op-decl" }]
@@ -68,16 +48,17 @@
         },
         "3": {
           "name": "entity.name.function"
+        }
+      }
+    },
+    {
+      "match": "(fn|lop|rop|op +[0-9]+) +([^ ]*)",
+      "captures": {
+        "1": {
+          "patterns": [{ "include": "#op-decl" }]
         },
-        "4": {
-          "patterns": [
-            {
-              "include": "#func-arg"
-            }
-          ]
-        },
-        "6": {
-          "name": "keyword.operator.assignment"
+        "2": {
+          "name": "entity.name.function"
         }
       }
     },
@@ -210,46 +191,52 @@
       }
     },
     "base-type": {
-      "match": "int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64",
+      "match": "int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64|f32|f64",
       "name": "storage.type"
     },
     "type": {
-      "match": "(([A-Z]([_0-9a-z-A-OQS-Z<>]*)([P|R]+([_0-9a-z-A-OQS-Z<>]+))*)|int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64)([P|R]*)",
+      "match": "((int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|[A-Z][_0-9a-zA-Z]*)(<( *((int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|[A-Z][_0-9a-zA-Z]*)(<( *((int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|[A-Z][_0-9a-zA-Z]*)(<( *((int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|[A-Z][_0-9a-zA-Z]*)(<( *(int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|[A-Z][_0-9a-zA-Z]*) *)*>)?[PR]*) *)*>)?[PR]*) *)*>)?[PR]*) *)*>)?[PR]*)",
       "captures": {
         "1": {
           "patterns": [
             {
-              "include": "#base-type"
+              "match": "int|auto|char|str|bool|i8|i16|i32|i64|u8|u16|u32|u64|f32|f64",
+              "name": "storage.type"
             },
             {
-              "match": "<|>",
+              "match": "<",
               "name": "keyword.operator.assignment"
             },
             {
-              "match": "[^<>]*",
+              "match": ">",
+              "name": "keyword.operator.assignment"
+            },
+            {
+              "match": "P+R?",
+              "name": "keyword.operator.assignment"
+            },
+            {
+              "match": "R",
+              "name": "keyword.operator.assignment"
+            },
+            {
+              "match": ".",
               "name": "entity.name.class"
             }
           ]
-        },
-        "6": {
-          "name": "keyword.operator.assignment"
         }
       }
     },
     "func-arg": {
-      "match": "\\s+([_a-zA-Z0-9<>]+)\\s+([_a-zA-Z0-9]+)",
-      "captures": {
-        "1": {
-          "patterns": [
-            {
-              "include": "#type"
-            }
-          ]
+      "patterns": [
+        {
+          "include": "#type"
         },
-        "2": {
+        {
+          "match": "[a-zA-Z0-9_]+",
           "name": "variable"
         }
-      }
+      ]
     }
   },
   "scopeName": "source.zh"
